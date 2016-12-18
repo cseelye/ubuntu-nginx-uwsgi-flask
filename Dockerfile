@@ -1,7 +1,6 @@
-FROM cseelye/rpi-raspbian-cross
+FROM ubuntu:16.04
 MAINTAINER Carl Seelye <cseelye@gmail.com>
 
-RUN [ "cross-build-start" ]
 RUN apt-get update && \
     apt-get --assume-yes upgrade && \
     apt-get --assume-yes install curl python python-dev build-essential nginx ca-certificates supervisor && \
@@ -15,7 +14,6 @@ RUN apt-get update && \
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY uwsgi-common.ini /etc/uwsgi/uwsgi-common.ini
 COPY nginx-ssl.conf /etc/nginx/conf.d/nginx-ssl.conf
-RUN [ "cross-build-end" ]
 
 WORKDIR /app
 CMD ["/usr/bin/supervisord"]
